@@ -17,9 +17,15 @@ class SnakeGame():
             snake.goto(starting_position[x],0)
             self.snakes.append(snake)
 
-    def move_snake(self,turtle):
-        """Moves the snake based on user input"""
-        
+    def move_snake_left(self):
+        """Moves the snake based left"""
+        new_heading = self.snakes[0].heading() + 90
+        self.snakes[0].setheading(new_heading)
+
+    def move_snake_right(self):
+        """Moves the snake based right"""
+        new_heading = self.snakes[0].heading() + 270
+        self.snakes[0].setheading(new_heading)
     
     def start_game(self):
         """Creates a window to show the playground and the snake"""
@@ -35,7 +41,7 @@ class SnakeGame():
         self.draw_snake()
 
         while game_is_on:
-            my_screen.update() #displays the current frame of the ongoing animation
+            my_screen.update() #displays the current frame of the ongoing animation, valid when trace if off
             time.sleep(0.1)
 
             for snake_num in range(self.snake_size-1,0,-1):
@@ -43,6 +49,9 @@ class SnakeGame():
                 new_y = self.snakes[snake_num-1].ycor()
                 self.snakes[snake_num].goto(new_x,new_y)
             self.snakes[0].forward(20)
+
+            my_screen.onkey(key='a',fun=self.move_snake_left)
+            my_screen.onkey(key='d',fun=self.move_snake_right)
 
         my_screen.exitonclick()
 
