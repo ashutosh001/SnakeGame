@@ -1,12 +1,13 @@
 from turtle import Screen
 from snake import Snake
 from snake_food import Food
+from scoreboard import ScoreBoard
 import time
 
 
 class SnakeGame:
     def __init__(self):
-        self.score = 0
+        pass
 
     def start_game(self):
         """Creates a window to show the playground and the snake"""
@@ -22,6 +23,7 @@ class SnakeGame:
         snake = Snake()
         snake.draw_snake()
         food = Food()
+        score = ScoreBoard()
 
         my_screen.onkey(key="Up",fun=snake.move_snake_up)
         my_screen.onkey(key="Down",fun=snake.move_snake_down)
@@ -40,8 +42,7 @@ class SnakeGame:
 
             #Detect collision with the food
             if snake.snake_segment[0].distance(food) < 15:
-                self.score += 1
-                print(f"Score : {self.score}")
+                score.update_score()
                 food.refresh()
 
         my_screen.exitonclick()
