@@ -1,9 +1,14 @@
 from turtle import Screen, Turtle
 
+UP = 90
+DOWN = 270
+LEFT = 180
+RIGHT = 0
+
 class Snake():
     def __init__(self):
         self.snake_size = 3
-        self.snakes = list()
+        self.snakes = list() #This lists contains all the segments of the snake, initially 3 segments
 
     def draw_snake(self):
         """Creates the initial snake using turtle"""
@@ -18,22 +23,22 @@ class Snake():
 
     def move_snake_up(self):
         """Moves the snake based up"""
-        new_heading = self.snakes[0].heading() + 0
-        self.snakes[0].setheading(new_heading)
+        if self.snakes[0].heading() != DOWN: #to prevent snake backward movement
+            self.snakes[0].setheading(UP) #only changing the head segment
 
     def move_snake_down(self):
         """Moves the snake based down"""
-        new_heading = self.snakes[0].heading() + 180
-        self.snakes[0].setheading(new_heading)
+        if self.snakes[0].heading() != UP:
+            self.snakes[0].setheading(DOWN)
 
     def move_snake_left(self):
         """Moves the snake based left"""
-        new_heading = self.snakes[0].heading() + 90
-        self.snakes[0].setheading(new_heading)
+        if self.snakes[0].heading() != RIGHT:
+            self.snakes[0].setheading(LEFT)
 
     def move_snake_right(self):
         """Moves the snake based right"""
-        new_heading = self.snakes[0].heading() + 270
-        self.snakes[0].setheading(new_heading)
+        if self.snakes[0].heading() != LEFT:
+            self.snakes[0].setheading(RIGHT)
     
 
