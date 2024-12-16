@@ -33,18 +33,37 @@ class SnakeGame:
         while game_is_on:
             my_screen.update() #displays the current frame of the ongoing animation, valid when trace if off
             time.sleep(0.1)
+
+            snake_head = snake.snake_segment[0]
  
             for snake_num in range(snake.snake_size-1,0,-1):
+                #each snake segment takes the last position of the previous segment
                 new_x = snake.snake_segment[snake_num-1].xcor()
                 new_y = snake.snake_segment[snake_num-1].ycor()
                 snake.snake_segment[snake_num].goto(new_x,new_y)
-            snake.snake_segment[0].forward(20)
+            snake_head.forward(20)
 
             #Detect collision with the food
-            if snake.snake_segment[0].distance(food) < 15:
-                score.update_score()
+            if snake_head.distance(food) < 15:
+                score.increase_score()
                 food.refresh()
                 snake.increase_snake()
+            
+            #Detect collision with wall
+            left_wall = snake_head.xcor() > 280
+            right_wall = snake_head.xcor() < -300
+            upper_wall = snake_head.ycor() > 280
+            bottom_wall = snake_head.ycor() < -290
+            if left_wall or right_wall or upper_wall or bottom_wall:
+                score.game_over()
+                game_is_on = False
+
+            #Detect collision with tail or any othe part of the body
+            for x in range(1,snake.snake_size):
+                segment = snake.snake_segment[x]
+                if snake_head.distance(segment) < 10:
+                    score.game_over()
+                    game_is_on = False
 
         my_screen.exitonclick()
 

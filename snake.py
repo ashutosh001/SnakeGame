@@ -15,6 +15,7 @@ class Snake:
         starting_position = [0,-20,-40]
         for x in range(self.snake_size):
             snake_segment = Turtle()
+            snake_segment.speed("slowest")
             snake_segment.shape("square")
             snake_segment.color("white")
             snake_segment.up()
@@ -24,6 +25,7 @@ class Snake:
     def increase_snake(self):
         """Makes the snake longer once the snake eats food"""
         new_snake_segment = Turtle()
+        new_snake_segment.speed("slowest")
         new_snake_segment.shape("square")
         new_snake_segment.color("white")
         new_snake_segment.up()
