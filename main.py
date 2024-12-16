@@ -1,8 +1,13 @@
-from turtle import Screen, Turtle
+from turtle import Screen
 from snake import Snake
+from snake_food import Food
 import time
 
-class SnakeGame():
+
+class SnakeGame:
+    def __init__(self):
+        self.score = 0
+
     def start_game(self):
         """Creates a window to show the playground and the snake"""
         my_screen = Screen()
@@ -16,21 +21,28 @@ class SnakeGame():
         my_screen.tracer(0) #turns off the animation
         snake = Snake()
         snake.draw_snake()
+        food = Food()
+
+        my_screen.onkey(key="Up",fun=snake.move_snake_up)
+        my_screen.onkey(key="Down",fun=snake.move_snake_down)
+        my_screen.onkey(key="Left",fun=snake.move_snake_left)
+        my_screen.onkey(key="Right",fun=snake.move_snake_right)
 
         while game_is_on:
             my_screen.update() #displays the current frame of the ongoing animation, valid when trace if off
             time.sleep(0.1)
-
+ 
             for snake_num in range(snake.snake_size-1,0,-1):
-                new_x = snake.snakes[snake_num-1].xcor()
-                new_y = snake.snakes[snake_num-1].ycor()
-                snake.snakes[snake_num].goto(new_x,new_y)
-            snake.snakes[0].forward(20)
+                new_x = snake.snake_segment[snake_num-1].xcor()
+                new_y = snake.snake_segment[snake_num-1].ycor()
+                snake.snake_segment[snake_num].goto(new_x,new_y)
+            snake.snake_segment[0].forward(20)
 
-            my_screen.onkey(key="Up",fun=snake.move_snake_up)
-            my_screen.onkey(key="Down",fun=snake.move_snake_down)
-            my_screen.onkey(key="Left",fun=snake.move_snake_left)
-            my_screen.onkey(key="Right",fun=snake.move_snake_right)
+            #Detect collision with the food
+            if snake.snake_segment[0].distance(food) < 15:
+                self.score += 1
+                print(f"Score : {self.score}")
+                food.refresh()
 
         my_screen.exitonclick()
 
