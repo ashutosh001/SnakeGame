@@ -44,6 +44,7 @@ class SnakeGame:
             if snake.snake_segment[0].distance(food) < 15:
                 score.update_score()
                 food.refresh()
+                snake.increase_snake()
 
         my_screen.exitonclick()
 

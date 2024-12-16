@@ -14,12 +14,25 @@ class Snake:
         """Creates the initial snake using turtle"""
         starting_position = [0,-20,-40]
         for x in range(self.snake_size):
-            snake = Turtle()
-            snake.shape("square")
-            snake.color("white")
-            snake.up()
-            snake.goto(starting_position[x],0)
-            self.snake_segment.append(snake)
+            snake_segment = Turtle()
+            snake_segment.shape("square")
+            snake_segment.color("white")
+            snake_segment.up()
+            snake_segment.goto(starting_position[x],0)
+            self.snake_segment.append(snake_segment)
+
+    def increase_snake(self):
+        """Makes the snake longer once the snake eats food"""
+        new_snake_segment = Turtle()
+        new_snake_segment.shape("square")
+        new_snake_segment.color("white")
+        new_snake_segment.up()
+        x_axis = self.snake_segment[self.snake_size-1].xcor()
+        y_axis = self.snake_segment[self.snake_size-1].ycor()
+        new_snake_segment.goto(x_axis,y_axis)
+        self.snake_segment.append(new_snake_segment)
+        self.snake_size += 1
+
 
     def move_snake_up(self):
         """Moves the snake head up"""
