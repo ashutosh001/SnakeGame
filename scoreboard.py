@@ -6,7 +6,7 @@ class ScoreBoard(Turtle):
     def __init__(self):
         super().__init__()
         self.score = 0
-        self.high_score = 0
+        self.high_score = self.read_score()
         self.color("white")
         self.hideturtle()
         self.up()
@@ -29,3 +29,15 @@ class ScoreBoard(Turtle):
             self.high_score = self.score
         self.score = 0
         self.update_score()
+        self.write_score()
+
+    def write_score(self):
+        """Writes the high score to a file"""
+        with open("high_score.txt","w") as file:
+            file.write(str(self.high_score))
+
+    def read_score(self):
+        """Reads the high score from the file"""
+        with open("high_score.txt") as file:
+            high_score = int(file.read())
+        return high_score
