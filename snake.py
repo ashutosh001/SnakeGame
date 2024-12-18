@@ -55,5 +55,13 @@ class Snake:
         """Moves the snake head right"""
         if self.snake_segment[0].heading() != LEFT:
             self.snake_segment[0].setheading(RIGHT)
+
+    def reset_snake(self):
+        """Resets the snake to the initial length for a new game"""
+        self.snake_size = 3
+        for snake in self.snake_segment:
+            snake.goto(900,900)
+        self.snake_segment.clear()
+        self.draw_snake()
     
 

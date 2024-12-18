@@ -55,15 +55,15 @@ class SnakeGame:
             upper_wall = snake_head.ycor() > 280
             bottom_wall = snake_head.ycor() < -290
             if left_wall or right_wall or upper_wall or bottom_wall:
-                score.game_over()
-                game_is_on = False
+                score.reset_scoreboard()
+                snake.reset_snake()
 
             #Detect collision with tail or any othe part of the body
             for x in range(1,snake.snake_size):
                 segment = snake.snake_segment[x]
                 if snake_head.distance(segment) < 10:
-                    score.game_over()
-                    game_is_on = False
+                    score.reset_scoreboard()
+                    snake.reset_snake()              
 
         my_screen.exitonclick()
 
